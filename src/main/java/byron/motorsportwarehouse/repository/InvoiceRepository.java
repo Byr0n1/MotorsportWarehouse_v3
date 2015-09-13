@@ -5,10 +5,13 @@
  */
 package byron.motorsportwarehouse.repository;
 
+import byron.motorsportwarehouse.domain.Invoice;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Byron
  */
-public class InvoiceRepository {
+public interface InvoiceRepository extends CrudRepository <Invoice, Long>{
     
 }

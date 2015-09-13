@@ -5,10 +5,21 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.CustName;
 /**
  *
  * @author Byron
  */
 public class CustNameFactory {
     
+    public static CustName createCustName (String name, String surname){
+        CustName custName = new CustName
+                .Builder(name)
+                .Surname(surname)
+                .build();
+                return custName;
+    }
+                
 }
+    
+

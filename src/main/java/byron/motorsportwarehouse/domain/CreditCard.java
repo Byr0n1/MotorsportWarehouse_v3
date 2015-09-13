@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 /**
  *
  * @author Byron
@@ -21,11 +22,77 @@ public class CreditCard implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String accNum;
+    private String status;
+    private String balance;
+
+    public CreditCard() {
+    }
+    
+    private CreditCard (Builder build){
+        this.id = build.id;
+        this.accNum = build.accNum;
+        this.status = build.status;
+        this.balance = build.balance;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String accNum;
+        private String status;
+        private String balance;
+    
+        public Builder (String accNum){
+            this.accNum = accNum;
+        }
+    
+        public Builder Id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder Status (String status){
+            this.status = status;
+            return this;
+        }
+    
+        public Builder Balance (String balance){
+            this.balance = balance;
+            return this;
+        }
+    
+        public Builder CreditCard (CreditCard creditCard){
+            this.id = creditCard.getId();
+            this.accNum = creditCard.getAccNum();
+            this.status = creditCard.getStatus();
+            this.balance = creditCard.getBalance();
+            return this;
+        }
+    
+        public CreditCard build(){
+            return new CreditCard(this);
+        }
+    }
 
     public Long getId() {
         return id;
     }
 
+    public String getAccNum() {
+        return accNum;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+    
+    
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,7 +119,7 @@ public class CreditCard implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.CreditCard[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }

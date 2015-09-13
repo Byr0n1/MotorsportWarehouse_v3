@@ -5,10 +5,13 @@
  */
 package byron.motorsportwarehouse.repository;
 
+import byron.motorsportwarehouse.domain.CreditCard;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Byron
  */
-public class CreditCardRepository {
+public interface CreditCardRepository extends CrudRepository <CreditCard, Long>{
     
 }

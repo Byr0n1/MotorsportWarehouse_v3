@@ -6,10 +6,15 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 
 /**
  *
@@ -21,10 +26,67 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String catName;
+    
+    @OneToMany
+    @JoinColumn(name="Cat_id")
+    private List <CarPart> carPart;
+    
+    public Category() {
+    }
+    
+    private Category (Builder build){
+        this.id = build.id;
+        this.catName = build.catName;
+        this.carPart = build.carPart;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String catName;
+        private List <CarPart> carPart;
+    
+        public Builder (String catName){
+            this.catName = catName;
+        }
+    
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder CarPart (List<CarPart> carPart){
+            this.carPart = carPart;
+            return this;
+        }     
+    
+        public Builder Category (Category category){
+            this.id = category.getId();
+            this.catName = category.getCatName();
+            this.carPart = category.getCarPart();
+            return this;
+        }
+    
+        public Category build(){
+            return new Category(this);
+        }
+    }
 
     public Long getId() {
         return id;
     }
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public List<CarPart> getCarPart() {
+        return carPart;
+    }
+    
+    
+
 
     public void setId(Long id) {
         this.id = id;
@@ -52,7 +114,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.Category[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }

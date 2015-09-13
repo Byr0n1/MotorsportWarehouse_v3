@@ -5,10 +5,20 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.CustContact;
 /**
  *
  * @author Byron
  */
 public class CustContactFactory {
     
+    public static CustContact createCustContact (String phoneNumber){
+        CustContact custContact = new CustContact
+                .Builder(phoneNumber)
+                .build();
+                return custContact;
+    }
+                
 }
+    
+

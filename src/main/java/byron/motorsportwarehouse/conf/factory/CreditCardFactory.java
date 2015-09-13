@@ -5,10 +5,23 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.CreditCard;
 /**
  *
  * @author Byron
  */
 public class CreditCardFactory {
     
+    public static CreditCard createCreditCard (String accNum, String status, 
+            String balance){
+        CreditCard cc = new CreditCard
+                .Builder(accNum)
+                .Status(status)
+                .Balance(balance)
+                .build();
+                return cc;
+    }
+                
 }
+    
+

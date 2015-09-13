@@ -6,10 +6,15 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+
 
 /**
  *
@@ -21,9 +26,76 @@ public class Shipper implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String shipperName;
+    private int shipperID;
+    
+    @OneToMany
+    @JoinColumn(name = "Shipper_ID")
+    private List <Order> order;
+
+    public Shipper() {
+    }
+    
+    private Shipper (Builder build){
+        this.id = build.id;
+        this.shipperName = build.shipperName;
+        this.shipperID = build.shipperID;
+        this.order = build.order;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String shipperName;
+        private int shipperID;
+        private List <Order> order;
+    
+        public Builder (int shipperID){
+            this.shipperID = shipperID;
+        }
+    
+        public Builder Id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder ShipperName (String shipperName){
+            this.shipperName = shipperName;
+            return this;
+        }
+        
+        public Builder Order (List <Order> order){
+            this.order = order;
+            return this;
+        }
+    
+        public Builder Shipper (Shipper shipper){
+            this.id = shipper.getId();
+            this.shipperName = shipper.getShipperName();
+            this.shipperID = shipper.getShipperID();
+            this.order = shipper.getOrder();
+            return this;
+        }
+    
+        public Shipper build(){
+            return new Shipper(this);
+        }
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public String getShipperName() {
+        return shipperName;
+    }
+
+    public int getShipperID() {
+        return shipperID;
+    }
+
+    public List<byron.motorsportwarehouse.domain.Order> getOrder() {
+        return order;
     }
 
     public void setId(Long id) {
@@ -52,7 +124,7 @@ public class Shipper implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.Shipper[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }

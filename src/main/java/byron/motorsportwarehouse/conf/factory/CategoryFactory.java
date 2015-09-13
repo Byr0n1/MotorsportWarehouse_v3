@@ -5,10 +5,23 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.CarPart;
+import byron.motorsportwarehouse.domain.Category;
+import java.util.List;
 /**
  *
  * @author Byron
  */
 public class CategoryFactory {
     
+    public static Category createCategory (String catName, List<CarPart> part){
+        Category cat = new Category
+                .Builder(catName)
+                .CarPart(part)
+                .build();
+                return cat;
+    }
+                
 }
+    
+

@@ -5,10 +5,13 @@
  */
 package byron.motorsportwarehouse.repository;
 
+import byron.motorsportwarehouse.domain.Customer;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Byron
  */
-public class CustomerRepository {
+public interface CustomerRepository extends CrudRepository <Customer, Long> {
     
 }

@@ -5,10 +5,13 @@
  */
 package byron.motorsportwarehouse.repository;
 
+import byron.motorsportwarehouse.domain.Supplier;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Byron
  */
-public class SupplierRepository {
+public interface SupplierRepository extends CrudRepository <Supplier, Long>{
     
 }

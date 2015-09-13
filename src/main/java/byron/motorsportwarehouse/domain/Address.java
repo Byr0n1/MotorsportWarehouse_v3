@@ -6,53 +6,122 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 /**
  *
  * @author Byron
  */
-@Entity
-public class Address implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Embeddable
+public class Address {
+    
+    private String addNum;
+    private String street;
+    private String suburb;
+    private String city;
+    private String country;
+    private String postalCode;
 
-    public Long getId() {
-        return id;
+    public Address() {
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    
+    private Address (Builder build){
+        
+        this.addNum = build.addNum;
+        this.street = build.street;
+        this.suburb = build.suburb;
+        this.city = build.city;
+        this.country = build.country;
+        this.postalCode = build.postalCode;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Address)) {
-            return false;
+    
+    public static class Builder{
+        private Long id;
+        private String addNum;
+        private String street;
+        private String suburb;
+        private String city;
+        private String country;
+        private String postalCode;
+    
+        public Builder (String street){
+            this.street = street;
         }
-        Address other = (Address) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
+    
+        public Builder Id(Long id) {
+            this.id = id;
+            return this;
         }
-        return true;
+    
+        public Builder AddNum (String addNum){
+            this.addNum = addNum;
+            return this;
+        }
+    
+        public Builder Suburb (String suburb){
+            this.suburb = suburb;
+            return this;
+        }
+    
+        public Builder City (String city){
+            this.city = city;
+            return this;
+        }
+    
+        public Builder Country (String country){
+            this.country = country;
+            return this;
+        }
+    
+        public Builder PostalCode (String postalCode){
+            this.postalCode = postalCode;
+            return this;
+        }
+    
+        public Builder Address (Address address){
+            this.addNum = address.getAddNum();
+            this.street = address.getStreet();
+            this.suburb = address.getSuburb();
+            this.city = address.getCity();
+            this.country = address.getCountry();
+            this.postalCode = address.getPostalCode();
+            return this;
+        }
+    
+        public Address build(){
+            return new Address(this);
+        }
     }
 
-    @Override
-    public String toString() {
-        return "byron.motorsportwarehouse.domain.Address[ id=" + id + " ]";
+    
+
+    public String getAddNum() {
+        return addNum;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getSuburb() {
+        return suburb;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
     }
     
 }

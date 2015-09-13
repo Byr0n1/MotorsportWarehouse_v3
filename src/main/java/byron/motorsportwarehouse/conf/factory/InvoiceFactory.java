@@ -5,10 +5,28 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.Invoice;
+import byron.motorsportwarehouse.domain.Order;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author Byron
  */
 public class InvoiceFactory {
     
+    public static Invoice createInvoice (String status, int itemQty, 
+            Date dateCreated, Order order){
+        Invoice invoice = new Invoice
+                .Builder(order)
+                .Status(status)
+                .ItemQty(itemQty)
+                .DateCreated(dateCreated)
+                .build();
+                return invoice;
+    }
+                
 }
+    
+

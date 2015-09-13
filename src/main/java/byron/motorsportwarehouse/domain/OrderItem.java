@@ -6,10 +6,15 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 
 /**
  *
@@ -21,9 +26,63 @@ public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private int qty;
+    
+    @OneToMany
+    @JoinColumn(name = "Order_Item_ID")
+    private List <CarPart> carPart;
+    
+    public OrderItem() {
+    }
+    
+    private OrderItem (Builder build){
+        this.id = build.id;
+        this.qty = build.qty;
+        this.carPart = build.carPart;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private int qty;
+        private List <CarPart> carPart;
+    
+        public Builder (int qty){
+            this.qty = qty;
+        }
+    
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder CarPart (List<CarPart> carPart){
+            this.carPart = carPart;
+            return this;
+        }     
+    
+        public Builder OrderItem (OrderItem orderItem){
+            this.id = orderItem.getId();
+            this.qty = orderItem.getQty();
+            this.carPart = orderItem.getCarPart();
+            return this;
+        }
+    
+        public OrderItem build(){
+            return new OrderItem(this);
+        }
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public List<CarPart> getCarPart() {
+        return carPart;
     }
 
     public void setId(Long id) {
@@ -52,7 +111,7 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.OrderItem[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }

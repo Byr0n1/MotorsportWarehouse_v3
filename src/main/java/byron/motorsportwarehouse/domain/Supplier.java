@@ -6,10 +6,15 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+
 
 /**
  *
@@ -21,10 +26,80 @@ public class Supplier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String suppName;
+    private int suppID;
+    
+    @OneToMany
+    @JoinColumn(name = "Supplier_ID")
+    private List <CarPart> carparts;
+    
+
+    public Supplier() {
+    }
+    
+    private Supplier (Builder build){
+        this.id = build.id;
+        this.suppName = build.suppName;
+        this.suppID = build.suppID;
+        this.carparts = build.carparts;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String suppName;
+        private int suppID;
+        private List <CarPart> carparts;
+    
+        public Builder (int suppID){
+            this.suppID = suppID;
+        }
+    
+        public Builder Id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder SuppName (String suppName){
+            this.suppName = suppName;
+            return this;
+        }
+        
+        public Builder CarPart (List<CarPart> carparts){
+            this.carparts = carparts;
+            return this;
+        }
+    
+        public Builder Supplier (Supplier supplier){
+            this.id = supplier.getId();
+            this.suppID = supplier.getSuppID();
+            this.suppName = supplier.getSuppName();
+            this.carparts = supplier.getCarparts();
+            return this;
+        }
+    
+        public Supplier build(){
+            return new Supplier(this);
+        }
+    }
 
     public Long getId() {
         return id;
     }
+
+    public String getSuppName() {
+        return suppName;
+    }
+
+    public int getSuppID() {
+        return suppID;
+    }
+
+    public List<CarPart> getCarparts() {
+        return carparts;
+    }
+    
+    
 
     public void setId(Long id) {
         this.id = id;
@@ -52,7 +127,7 @@ public class Supplier implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.Supplier[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }

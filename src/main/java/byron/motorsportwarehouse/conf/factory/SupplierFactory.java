@@ -5,10 +5,24 @@
  */
 package byron.motorsportwarehouse.conf.factory;
 
+import byron.motorsportwarehouse.domain.CarPart;
+import byron.motorsportwarehouse.domain.Supplier;
+import java.util.List;
 /**
  *
  * @author Byron
  */
 public class SupplierFactory {
     
+    public static Supplier createSupplier (String suppName, int suppID, List <CarPart> Carpart){
+        Supplier supplier = new Supplier
+                .Builder(suppID)
+                .SuppName(suppName)
+                .CarPart(Carpart)
+                .build();
+                return supplier;
+    }
+                
 }
+    
+

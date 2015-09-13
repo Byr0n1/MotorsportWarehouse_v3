@@ -6,10 +6,14 @@
 package byron.motorsportwarehouse.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+
 
 /**
  *
@@ -21,11 +25,99 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String status;
+    private int itemQty;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateCreated;
+    
+    @OneToOne
+    private Order order;
+
+    public Invoice() {
+    }
+    
+    private Invoice (Builder build){
+        this.id = build.id;
+        this.status = build.status;
+        this.itemQty = build.itemQty;
+        this.dateCreated = build.dateCreated;
+        this.order = build.order;
+    }
+    
+    public static class Builder{
+        private Long id;
+        private String status;
+        private int itemQty;
+        private Date dateCreated;
+        private Order order;
+    
+        public Builder (Order order){
+            this.order = order;
+        }
+    
+        public Builder Id(Long id) {
+            this.id = id;
+            return this;
+        }
+    
+        public Builder Status (String status){
+            this.status = status;
+            return this;
+        }
+    
+        public Builder ItemQty (int itemQty){
+            this.itemQty = itemQty;
+            return this;
+        }
+        
+        public Builder DateCreated (Date dateCreated){
+            this.dateCreated = dateCreated;
+            return this;
+        }
+        
+        public Builder Order (Order order){
+            this.order = order;
+            return this;
+        }        
+    
+        public Builder Invoice (Invoice invoice){
+            this.id = invoice.getId();
+            this.status = invoice.getStatus();
+            this.itemQty = invoice.getItemQty();
+            this.dateCreated = invoice.getDateCreated();
+            this.order = invoice.getOrder();
+            return this;
+        }
+    
+        public Invoice build(){
+            return new Invoice(this);
+        }
+    }
 
     public Long getId() {
         return id;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public int getItemQty() {
+        return itemQty;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public byron.motorsportwarehouse.domain.Order getOrder() {
+        return order;
+    }
+
+    
+    
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,7 +144,7 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "byron.motorsportwarehouse.domain.Invoice[ id=" + id + " ]";
+        return "byron.motorsportwarehouse.domain.Customer[ id=" + id + " ]";
     }
     
 }
